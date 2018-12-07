@@ -10,7 +10,7 @@ import java.util.Set;
 public class ShardConfigHolder {
 	private static final ShardConfigHolder instance = new ShardConfigHolder();
 
-	private Map<String, ShardStrategy> strategyRegister = new HashMap();
+	private Map<String, ShardStrategy> strategyRegister = new HashMap<>();
 	private Set<String> ignoreSet;
 	private Set<String> parseSet;
 
@@ -28,14 +28,14 @@ public class ShardConfigHolder {
 
 	public synchronized void addIgnoreId(String id) {
 		if (this.ignoreSet == null) {
-			this.ignoreSet = new HashSet();
+			this.ignoreSet = new HashSet<>();
 		}
 		this.ignoreSet.add(id);
 	}
 
 	public synchronized void addParseId(String id) {
 		if (this.parseSet == null) {
-			this.parseSet = new HashSet();
+			this.parseSet = new HashSet<>();
 		}
 		this.parseSet.add(id);
 	}

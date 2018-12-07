@@ -2,9 +2,6 @@
 package com.google.code.shardbatis.converter;
 
 import com.google.code.shardbatis.ShardException;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
@@ -14,6 +11,10 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.update.Update;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
+
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SqlConverterFactory {
 	private static final Log log = LogFactory.getLog(SqlConverterFactory.class);
@@ -27,7 +28,7 @@ public class SqlConverterFactory {
 	}
 
 	private SqlConverterFactory() {
-		this.converterMap = new HashMap();
+		this.converterMap = new HashMap<>();
 		this.pm = new CCJSqlParserManager();
 		register();
 	}
@@ -40,7 +41,7 @@ public class SqlConverterFactory {
 	}
 
 	public String convert(String sql, Object params, String mapperId) throws ShardException {
-		Statement statement = null;
+		Statement statement;
 		try {
 			statement = this.pm.parse(new StringReader(sql));
 		} catch (JSQLParserException e) {
@@ -48,7 +49,7 @@ public class SqlConverterFactory {
 			throw new ShardException(e);
 		}
 
-		SqlConverter converter = (SqlConverter) this.converterMap.get(statement.getClass().getName());
+		SqlConverter converter = this.converterMap.get(statement.getClass().getName());
 
 		if (converter != null) {
 			return converter.convert(statement, params, mapperId);

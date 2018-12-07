@@ -26,7 +26,7 @@ import org.apache.ibatis.plugin.Plugin;
 public class ShardPlugin implements Interceptor {
 	private static final Log log = LogFactory.getLog(ShardPlugin.class);
 	public static final String SHARDING_CONFIG = "shardingConfig";
-	private static final ConcurrentHashMap<String, Boolean> cache = new ConcurrentHashMap();
+	private static final ConcurrentHashMap<String, Boolean> cache = new ConcurrentHashMap<>();
 
 	public Object intercept(Invocation invocation) throws Throwable {
 		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
